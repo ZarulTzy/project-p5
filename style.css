@@ -1,0 +1,45 @@
+.header{
+    justify-content: space-between;
+}
+.header h1:hover{
+    cursor: pointer;
+}
+
+.header ul li{
+    display: inline-block;
+    user-select: none;
+}
+
+
+
+.nav-ul{
+    list-style-type: none;
+}
+
+
+
+.input-search{
+    margin-right: -4.5px;
+    box-sizing: border-box;
+}
+
+.icon-profile:hover{
+    opacity: 75%;
+}
+
+.kelas-p{
+    font-size: 75%;
+    margin-top: -1px;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+.nama-siswa{
+    margin-bottom: 0;
+}
+
+.mobile-nav-btn:active, .mobile-nav-btn:focus{
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
