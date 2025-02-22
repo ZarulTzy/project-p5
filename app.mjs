@@ -111,6 +111,36 @@ app.post('/delate', async(req,res) => {
     }
 })
 
+app.post('/edit', async (req, res) => {
+    const { id, nama, kelas, pesan } = req.body;
+
+    if (!id || !nama || !kelas || !pesan) {
+      res.status(400).json({ error: "Data tidak lengkap" });
+      return;
+    }
+    
+    let dataAspirasi = await loadFileAspirasi();
+
+    const index = dataAspirasi.findIndex(item => item.id === Number(id));
+
+    if (index === -1) {
+      res.status(404).json({ error: "Data tidak ditemukan" });
+      return;
+    }
+    
+    dataAspirasi[index] = { ...dataAspirasi[index], nama, kelas, pesan };
+    
+    try {
+      await fs.writeFile(aspirasiFile, JSON.stringify(dataAspirasi, null, 2), 'utf-8');
+      console.log("Data berhasil diperbarui");
+      res.status(200).json({ message: "Data berhasil diperbarui" });
+    } catch (err) {
+      console.log('Error:', err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+  
+
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server berjalan pada http://localhost:${port}`);
