@@ -43,3 +43,29 @@
     box-shadow: none;
     border: none;
 }
+
+.absensi-icon span {
+    /* state default tanpa warna khusus */
+    background-color: transparent;
+  }
+  
+  .absensi-icon span.active-absen.i-hadir {
+    background-color: green;
+  }
+  
+  .absensi-icon span.active-absen.i-sakit {
+    background-color: aqua;
+  }
+  
+  .absensi-icon span.active-absen.i-izin {
+    background-color: orange;
+  }
+  
+  .absensi-icon span.active-absen.i-tanpaket {
+    background-color: red;
+  }
+  
+/* absensi */
+.i-hadir, .i-sakit, .i-izin, .i-tanpaket:hover{
+    cursor: pointer;
+}

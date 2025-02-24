@@ -1,3 +1,39 @@
 [
-    
+  {
+    "date": "2025/02/24",
+    "absen": [
+      {
+        "nama": "Fauzan",
+        "status": "hadir"
+      },
+      {
+        "nama": "Helminton",
+        "status": "hadir"
+      },
+      {
+        "nama": "Moh Faiz",
+        "status": "hadir"
+      },
+      {
+        "nama": "Moh Fathur",
+        "status": "hadir"
+      },
+      {
+        "nama": "Moh Rafi",
+        "status": "hadir"
+      },
+      {
+        "nama": "Rasya",
+        "status": ""
+      },
+      {
+        "nama": "Samudra",
+        "status": ""
+      },
+      {
+        "nama": "Sapar",
+        "status": "hadir"
+      }
+    ]
+  }
 ]

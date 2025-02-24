@@ -5,13 +5,13 @@ import cors from 'cors';
 
 const app = express();
 const aspirasiFile = 'data/aspirasi.json'
+const absensiFile = 'data/absensi.json'
 
 app.use(cors())
 app.use(express.json())
 
 // membaca file aspirasi
 async function loadFileAspirasi() {
-    // pencegahan error karena tidak ada file dan array
     try {
         await fs.access(aspirasiFile);
     } catch (err) {
@@ -28,6 +28,27 @@ async function loadFileAspirasi() {
         return []
     }
 }
+
+// membaca file absensi
+async function loadFileAbsensi() {
+    try {
+        await fs.access(absensiFile);
+    } catch (err) {
+        await fs.writeFile(absensiFile, '[]', 'utf-8');
+    }
+
+    // load file 
+    try{
+        const data =JSON.parse(await fs.readFile(absensiFile, 'utf-8'));
+        return data
+
+    }catch(err){
+        console.log(`terjadi error\n ${err}`)
+        return []
+    }
+}
+
+
 
 app.get('/', (req,res)=>{
     res.send("saya suka js");
@@ -46,9 +67,12 @@ async function idAspirasi(){
     return id
 }
 
+const date = new Date()
+
 // menerima request dan mengolahnya
 app.post('/aspirasi', async(req,res) =>{
     const {nama, kelas, pesan} = req.body;
+    const dateNow = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
     
     if(!nama || !kelas || !pesan){
         res.status(400).json({error : "tolong isi data dengan bernar"})
@@ -58,7 +82,7 @@ app.post('/aspirasi', async(req,res) =>{
     const tambahAspirasi = await loadFileAspirasi();
     const id = await idAspirasi()
 
-    tambahAspirasi.push({nama, kelas,pesan, id})
+    tambahAspirasi.push({nama, kelas,pesan, id, date : dateNow})
 
 
     try{
@@ -140,6 +164,50 @@ app.post('/edit', async (req, res) => {
     }
   });
   
+//   absensi
+
+// tampilkan daftar siswa
+app.get('/absen-view', async(req, res) => {
+    try{
+        const dataAbsen = await loadFileAbsensi();
+        res.status(200).json({dataAbsen})
+        return true
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+
+})
+
+app.post('/absen', async(req,res) =>{
+    const {status, nama, date} = req.body;
+    let dataAbsensi = await loadFileAbsensi();
+    
+    let dataUpdated = false;
+
+    dataAbsensi.forEach(e => {
+        e.absen.forEach(person => {
+            if(person.nama === nama) {
+                person.status = status;
+                dataUpdated = true;
+            }
+        });
+    });
+
+    if (dataUpdated) {
+        try {
+            await fs.writeFile(absensiFile, JSON.stringify(dataAbsensi, null, 2), 'utf-8');
+            console.log(`Status ${nama} berhasil diperbarui menjadi ${status}`);
+            res.status(200).json({message: `Status ${nama} berhasil diperbarui`});
+        } catch (err) {
+            console.log("Error menyimpan data:", err);
+            res.status(500).json({error: "Gagal menyimpan perubahan"});
+        }
+    } else {
+        res.status(404).json({error: "Nama tidak ditemukan dalam daftar absensi"});
+    }
+});
+
 
 const port = 3000;
 app.listen(port, () => {
