@@ -1,5 +1,5 @@
 function loadAspirasi() {
-  fetch('http://localhost:3000/aspirasi')
+  fetch('https://project-p5-two.vercel.app/aspirasi')
     .then(response => response.json())
     .then(data => {
       const mainRow = document.querySelector('.main-row');
@@ -39,7 +39,7 @@ document.getElementById('kirim-aspirasi').addEventListener('click', function () 
   const id = this.getAttribute('data-edit-id');
 
   // Tentukan endpoint
-  const url = id ? 'http://localhost:3000/edit' : 'http://localhost:3000/aspirasi';
+  const url = id ? 'https://project-p5-two.vercel.app/edit' : 'https://project-p5-two.vercel.app/aspirasi';
 
   const payload = id ? { id, nama, kelas, pesan } : { nama, kelas, pesan };
 
@@ -76,7 +76,7 @@ mainRow.addEventListener('click', function (e) {
   // Hapus aspirasi
   if (e.target.classList.contains('delete-btn')) {
     const id = e.target.getAttribute('data-id');
-    fetch('http://localhost:3000/delate', {
+    fetch('https://project-p5-two.vercel.app/delate', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id })
