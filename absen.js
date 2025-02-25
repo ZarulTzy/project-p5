@@ -1,5 +1,5 @@
 const loadDisplay = function(){
-    fetch('http://localhost:3000/absen-view')
+    fetch('https://project-p5-two.vercel.app/absen-view')
     .then(respone => respone.json())
     .then(data => {
         const dataAbsen = document.getElementById('absen-container')
@@ -50,7 +50,7 @@ document.getElementById('absen-container').addEventListener('click', function(e)
 
         const status = {status : e.target.dataset.absen, nama : namaElement, date : dateNow}
 
-        fetch('http://localhost:3000/absen', {
+        fetch('https://project-p5-two.vercel.app/absen', {
             method : "POST",
             headers : { "Content-Type": "application/json" },
             body : JSON.stringify(status)
