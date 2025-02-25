@@ -10,10 +10,6 @@
     {
       "src": "^/api/(.*)$",
       "dest": "app.mjs"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/home.html"
     }
   ]
 }
