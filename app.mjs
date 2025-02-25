@@ -51,7 +51,8 @@ async function loadFileAbsensi() {
 
 
 app.get('/', (req,res)=>{
-    res.sendFile(path.resolve('home.html'))
+    res.send("lah kok");
+    res.sendFile(path.resolve('home.html'));
     res.end()
 })
 
