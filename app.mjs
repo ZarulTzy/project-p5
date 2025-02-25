@@ -51,7 +51,7 @@ async function loadFileAbsensi() {
 
 
 app.get('/', (req,res)=>{
-    res.send("saya suka js");
+    res.sendFile(path.resolve('home.html'))
     res.end()
 })
 
